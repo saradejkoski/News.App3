@@ -14,7 +14,7 @@ import java.util.Objects;
 public class NewsApi {
     public static final String DELIMITER = "&";
     private static final String URL = "https://newsapi.org/v2/%s?q=%s&apiKey=%s";
-    private static final String API_KEY = Dotenv.load().get("API_TOKEN");
+    private static final String API_KEY = Dotenv.load().get("API_TOKEN");   // read token from .env file -> add .env to .gitignore!!!
     private final OkHttpClient client;
 
     private Endpoint endpoint;
@@ -160,8 +160,7 @@ public class NewsApi {
                 .url(url)
                 .build();
 
-         System.out.println(url);
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = client.newCall(request).execute()) {   // try with resources syntax
             Gson gson = new Gson();
             NewsResponse apiResponse = gson.fromJson(Objects.requireNonNull(response.body()).string(), NewsResponse.class); // parse the json response to NewsResponse
             if(apiResponse.getStatus().equals("ok")){   // http status code ok - 200
