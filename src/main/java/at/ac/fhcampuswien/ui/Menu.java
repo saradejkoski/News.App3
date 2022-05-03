@@ -16,7 +16,7 @@ public class Menu {
         controller = new AppController();
 
         do{
-            printMenu();
+            System.out.println(getMenuText());
             input = readLine();
             handleInput(input);
         } while(!input.equals("q"));
@@ -56,11 +56,7 @@ public class Menu {
     public static void printInvalidInputMessage(){
         System.out.println(INVALID_INPUT_MESSAGE);
     }
-
-    private static void printMenu(){
-        System.out.println(getMenuText());
-    }
-
+    
     private static String getMenuText(){
         return """
                 *****************************
