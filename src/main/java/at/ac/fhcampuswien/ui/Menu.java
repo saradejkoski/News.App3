@@ -1,6 +1,8 @@
 package at.ac.fhcampuswien.ui;
 
 import at.ac.fhcampuswien.controllers.AppController;
+import at.ac.fhcampuswien.downloader.ParallelDownloader;
+import at.ac.fhcampuswien.downloader.SequentialDownloader;
 import at.ac.fhcampuswien.models.Article;
 
 import java.util.List;
@@ -29,8 +31,20 @@ public class Menu {
             case "b" -> getAllNewsBitcoin(controller);
             case "y" -> getArticleCount(controller);
             case "q" -> printExitMessage();
+            case "h" -> downloadURLs();
             default -> printInvalidInputMessage();
         }
+    }
+
+    // Method is needed for exercise 4 - ignore for exercise 2 solution
+    private void downloadURLs(){
+        int resultSequential = controller.downloadURLs(new SequentialDownloader());
+        // TODO print time in ms it took to download URLs sequentially
+
+        // TODO implement the process() function in ParallelDownloader class
+        int resultParallel = controller.downloadURLs(new ParallelDownloader());
+
+        // TODO print time in ms it took to download URLs parallel
     }
 
     private void getArticleCount(AppController controller) {
@@ -66,7 +80,14 @@ public class Menu {
                 a: Get top headlines austria
                 b: Get all news about bitcoin
                 y: Count articles
-                q: Quit program""";
+                q: Quit program
+                c: Get provider with most articles
+                d: Get longest author name
+                e: Count articles from NY Times
+                f: Get articles with short title
+                g: Sort articles by content length
+                h: Download URLs
+                """;
     }
 
     private static String readLine() {

@@ -1,6 +1,7 @@
 package at.ac.fhcampuswien.controllers;
 
 import at.ac.fhcampuswien.api.NewsApi;
+import at.ac.fhcampuswien.downloader.Downloader;
 import at.ac.fhcampuswien.enums.Country;
 import at.ac.fhcampuswien.enums.Endpoint;
 import at.ac.fhcampuswien.models.Article;
@@ -21,6 +22,15 @@ public class AppController {
         return articles;
     }
 
+    // Method is needed for exercise 4 - ignore for exercise 2 solution
+    // returns number of downloaded article urls
+    public int downloadURLs(Downloader downloader) {
+        List<String> urls = new ArrayList<>();
+
+        //TODO extract urls from articles with java stream
+
+        return downloader.process(urls);
+    }
     /**
      * gets the size of last fetched articles
      * @return size of article list
