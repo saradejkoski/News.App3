@@ -1,4 +1,5 @@
 package at.ac.fhcampuswien.api;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import at.ac.fhcampuswien.enums.*;
 import at.ac.fhcampuswien.models.NewsResponse;
