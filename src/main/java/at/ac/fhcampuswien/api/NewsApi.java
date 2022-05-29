@@ -1,4 +1,5 @@
 package at.ac.fhcampuswien.api;
+import at.ac.fhcampuswien.exception.NewsApiException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import at.ac.fhcampuswien.enums.*;
@@ -113,7 +114,13 @@ public class NewsApi {
         this.page = page;
     }
 
-    private String buildUrl(){
+    private String buildUrl() throws NewsApiException {
+
+        if(URL.equals("")) throw new NewsApiException("Please provide a valid URL!");
+        if(getEndpoint().getValue().equals("")) throw new NewsApiException("Please provide a valid Endpoint!");
+        if(getQ().equals("")) throw new NewsApiException("Please provide a Query!");
+        if(API_KEY.equals("")) throw new NewsApiException("Please provide a working API key!");
+
         String baseurl = String.format(URL, getEndpoint().getValue(), getQ(), API_KEY);
 
         StringBuilder sb = new StringBuilder(baseurl);
