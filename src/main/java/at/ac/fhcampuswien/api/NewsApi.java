@@ -1,5 +1,7 @@
 package at.ac.fhcampuswien.api;
+
 import at.ac.fhcampuswien.exception.NewsApiException;
+import com.google.gson.JsonSyntaxException;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import at.ac.fhcampuswien.enums.*;
@@ -11,6 +13,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
+import java.sql.SQLOutput;
 import java.util.Objects;
 
 public class NewsApi {
@@ -86,13 +90,13 @@ public class NewsApi {
         return endpoint;
     }
 
-    public NewsApi(String q, Endpoint endpoint){
+    public NewsApi(String q, Endpoint endpoint) {
         this.client = new OkHttpClient();
         this.q = q;
         this.endpoint = endpoint;
     }
 
-    public NewsApi(String q, Country country, Endpoint endpoint){
+    public NewsApi(String q, Country country, Endpoint endpoint) {
         this.client = new OkHttpClient();
         this.q = q;
         this.sourceCountry = country;
@@ -116,46 +120,46 @@ public class NewsApi {
 
     private String buildUrl() throws NewsApiException {
 
-        if(URL.equals("")) throw new NewsApiException("Please provide a valid URL!");
-        if(getEndpoint().getValue().equals("")) throw new NewsApiException("Please provide a valid Endpoint!");
-        if(getQ().equals("")) throw new NewsApiException("Please provide a Query!");
-        if(API_KEY.equals("")) throw new NewsApiException("Please provide a working API key!");
+        if (URL.equals("")) throw new NewsApiException("Please provide a valid URL!");
+        if (getEndpoint().getValue().equals("")) throw new NewsApiException("Please provide a valid Endpoint!");
+        if (getQ().equals("")) throw new NewsApiException("Please provide a Query!");
+        if (API_KEY.equals("")) throw new NewsApiException("Please provide a working API key!");
 
         String baseurl = String.format(URL, getEndpoint().getValue(), getQ(), API_KEY);
 
         StringBuilder sb = new StringBuilder(baseurl);
 
-        if(getFrom() != null){
+        if (getFrom() != null) {
             sb.append(DELIMITER).append("from=").append(getFrom());
         }
-        if(getTo() != null){
+        if (getTo() != null) {
             sb.append(DELIMITER).append("to=").append(getTo());
         }
-        if(getPage() != null){
+        if (getPage() != null) {
             sb.append(DELIMITER).append("page=").append(getPage());
         }
-        if(getPageSize() != null){
+        if (getPageSize() != null) {
             sb.append(DELIMITER).append("pageSize=").append(getPageSize());
         }
-        if(getLanguage() != null){
+        if (getLanguage() != null) {
             sb.append(DELIMITER).append("language=").append(getLanguage());
         }
-        if(getSourceCountry() != null){
+        if (getSourceCountry() != null) {
             sb.append(DELIMITER).append("country=").append(getSourceCountry());
         }
-        if(getSourceCategory() != null){
+        if (getSourceCategory() != null) {
             sb.append(DELIMITER).append("category=").append(getSourceCategory());
         }
-        if(getDomains() != null){
+        if (getDomains() != null) {
             sb.append(DELIMITER).append("domains=").append(getDomains());
         }
-        if(getExcludeDomains() != null){
+        if (getExcludeDomains() != null) {
             sb.append(DELIMITER).append("excludeDomains=").append(getExcludeDomains());
         }
-        if(getqInTitle() != null){
+        if (getqInTitle() != null) {
             sb.append(DELIMITER).append("qInTitle=").append(getqInTitle());
         }
-        if(getSortBy() != null){
+        if (getSortBy() != null) {
             sb.append(DELIMITER).append("sortBy=").append(getSortBy());
         }
         return sb.toString();
@@ -171,14 +175,22 @@ public class NewsApi {
         try (Response response = client.newCall(request).execute()) {   // try with resources syntax
             Gson gson = new Gson();
             NewsResponse apiResponse = gson.fromJson(Objects.requireNonNull(response.body()).string(), NewsResponse.class); // parse the json response to NewsResponse
-            if(apiResponse.getStatus().equals("ok")){   // http status code ok - 200
+            if (apiResponse.getStatus().equals("ok")) {   // http status code ok - 200
                 return apiResponse;
             } else {
                 System.err.println(this.getClass() + ": http status not ok");
                 return null;
             }
+        // https://www.tabnine.com/code/java/methods/okhttp3.Dispatcher/executorService 29.05.2022 || last visit 18.37
+        } catch (UnknownHostException e) {
+            client.dispatcher().executorService().shutdown();
+            System.out.println("Check your internet connection!");
+            return null;
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            return null;
+        } catch (JsonSyntaxException e) {
+            System.out.println("Incorrect Json Statement");
             return null;
         }
     }
