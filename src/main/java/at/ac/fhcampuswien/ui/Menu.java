@@ -33,6 +33,8 @@ public class Menu {
             case "y" -> getArticleCount(controller);
             case "q" -> printExitMessage();
             case "h" -> downloadURLs();
+            case "c" -> printSourceWithMostArticles(controller);
+            case "e" -> printAmountOfNYTArticles(controller);
             default -> printInvalidInputMessage();
         }
     }
@@ -72,6 +74,19 @@ public class Menu {
             System.out.println("There are no news about bitcoin!");
         }
     }
+
+    private void printSourceWithMostArticles (AppController controller) {
+        System.out.println("Name of most used source: " + controller.printSourceWithMostArticles());
+    }
+
+    private void printAmountOfNYTArticles (AppController controller) {
+        System.out.println("Number of articles: " + controller.printAmountOfNYTArticles());
+    }
+
+
+
+
+
 
     public static void printExitMessage(){
         System.out.println(EXIT_MESSAGE);
