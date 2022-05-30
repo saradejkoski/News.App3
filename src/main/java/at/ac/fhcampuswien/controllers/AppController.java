@@ -59,7 +59,7 @@ public class AppController {
      * @return article list
      */
     public List<Article> getTopHeadlinesAustria() throws NewsApiException {
-        NewsApi api = new NewsApi("texas", Country.us, Endpoint.TOP_HEADLINES);
+        NewsApi api = new NewsApi("corona", Country.at, Endpoint.TOP_HEADLINES);
         NewsResponse response = api.requestData();
 
         if (response != null) {
@@ -149,18 +149,15 @@ public class AppController {
     }
 
     public List<Article> printTitlesWithLessThan15(){
-        List<Article> filteredArticles = new ArrayList<>();
-        if (articles == null) {
-            return null;
-        }else {
-            articles.stream()
-                    .filter(article -> article.getTitle().length() < 15)
-                    .forEach(filteredArticles::add);
-            if(filteredArticles.isEmpty()) {
-                return null;
-            }else {
-                return filteredArticles;
-            }
+        if (!articles.isEmpty()){
+            setArticles(articles.stream()
+                    .filter(article -> article.getTitle()
+                            .length() < 15).collect(Collectors.toList()));
+            newsResponse.setTotalResults(articles.size());
+            return articles;
+        }
+        else{
+            return new ArrayList<>();
         }
     }
 

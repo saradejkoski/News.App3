@@ -80,24 +80,43 @@ public class Menu {
     }
 
     private void printSourceWithMostArticles (AppController controller) {
-        System.out.println("Name of most used source: " + controller.printSourceWithMostArticles());
+        try {
+            System.out.println("Name of most used source: " + controller.printSourceWithMostArticles());
+        } catch (NullPointerException exception) {
+            System.out.println("Unable to find a source with more Articles than others!");
+        }
     }
 
     private void printAmountOfCNNArticles (AppController controller) {
-        System.out.println("Number of articles: " + controller.printAmountOfCNNArticles());
+        try {
+            System.out.println("Number of articles: " + controller.printAmountOfCNNArticles());
+        } catch (NullPointerException exception) {
+            System.out.println("No Articles of CNN found!");
+        }
     }
 
     public void printLongestAuthorName (AppController controller){
-        System.out.println("Author with longest name: " + controller.printLongestAuthorName());
+        try {
+            System.out.println("Author with longest name: " + controller.printLongestAuthorName());
+        } catch (NullPointerException exception) {
+            System.out.println("Can not print the longest author name!");
+        }
     }
 
     public void printTitlesWithLessThan15(AppController controller){
-        System.out.println("Headline with less than 15 letters: " + controller.printTitlesWithLessThan15());
+        try {
+            System.out.println("Headline with less than 15 characters: " + controller.printTitlesWithLessThan15());
+        } catch (NullPointerException exception) {
+            System.out.println("No Title with less than 15 characters found!");
+        }
     }
 
-
     public void printArticlesWithLongestDescription(AppController controller){
-        System.out.println(controller.printArticlesWithLongestDescription());
+        try {
+            System.out.println(controller.printArticlesWithLongestDescription());
+        } catch (NullPointerException exception) {
+            System.out.println("No Articles with descriptions found!");
+        }
     }
 
 
@@ -121,7 +140,7 @@ public class Menu {
                 q: Quit program
                 c: Get provider with most articles
                 d: Get longest author name
-                e: Count articles from NY Times
+                e: Count articles from CNN
                 f: Get articles with short title
                 g: Sort articles by content length
                 h: Download URLs

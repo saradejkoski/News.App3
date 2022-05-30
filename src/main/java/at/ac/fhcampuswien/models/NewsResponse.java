@@ -18,4 +18,8 @@ public class NewsResponse {
     public List<Article> getArticles() {
         return articles;
     }
+
+    public void setTotalResults(int totalResults) {
+        this.totalResults = totalResults;
+    }
 }
