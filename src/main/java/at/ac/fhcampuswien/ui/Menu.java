@@ -36,9 +36,9 @@ public class Menu {
             case "h" -> downloadURLs();
             case "c" -> printSourceWithMostArticles(controller);
             case "d" -> printLongestAuthorName(controller);
-            case "e" -> printAmountOfNYTArticles(controller);
-            case "f" -> printHeadlinesUnder15(controller);
-            case "g" -> longestDescription(controller);
+            case "e" -> printAmountOfCNNArticles(controller);
+            case "f" -> printTitlesWithLessThan15(controller);
+            case "g" -> printArticlesWithLongestDescription(controller);
             default -> printInvalidInputMessage();
         }
     }
@@ -83,21 +83,21 @@ public class Menu {
         System.out.println("Name of most used source: " + controller.printSourceWithMostArticles());
     }
 
-    private void printAmountOfNYTArticles (AppController controller) {
-        System.out.println("Number of articles: " + controller.printAmountOfNYTArticles());
+    private void printAmountOfCNNArticles (AppController controller) {
+        System.out.println("Number of articles: " + controller.printAmountOfCNNArticles());
     }
 
     public void printLongestAuthorName (AppController controller){
         System.out.println("Author with longest name: " + controller.printLongestAuthorName());
     }
 
-    public void printHeadlinesUnder15(AppController controller){
-        System.out.println("Headline with less than 15 letters: " + controller.getTitlesLessThan15());
+    public void printTitlesWithLessThan15(AppController controller){
+        System.out.println("Headline with less than 15 letters: " + controller.printTitlesWithLessThan15());
     }
 
 
-    public void longestDescription(AppController controller){
-        System.out.println(controller.longestDescription());
+    public void printArticlesWithLongestDescription(AppController controller){
+        System.out.println(controller.printArticlesWithLongestDescription());
     }
 
 

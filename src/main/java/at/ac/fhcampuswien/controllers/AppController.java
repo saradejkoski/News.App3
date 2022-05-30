@@ -128,7 +128,7 @@ public class AppController {
 
 
     // NYT did not work, no articles were found, so we used CNN.
-    public String printAmountOfNYTArticles() {
+    public String printAmountOfCNNArticles() {
         if (!articles.isEmpty()) {
             return "" + articles.stream().filter(article -> article.getSource().getName().equals("CNN"))
                     .count();
@@ -148,7 +148,7 @@ public class AppController {
         }
     }
 
-    public List<Article> getTitlesLessThan15(){
+    public List<Article> printTitlesWithLessThan15(){
         List<Article> filteredArticles = new ArrayList<>();
         if (articles == null) {
             return null;
@@ -164,7 +164,7 @@ public class AppController {
         }
     }
 
-    public List<Article> longestDescription(){
+    public List<Article> printArticlesWithLongestDescription(){
         for(int i = 0; i < articles.size();i++){
             if(articles.get(i).getDescription() == null){
                 articles.get(i).setDescription("");
