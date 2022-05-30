@@ -169,7 +169,6 @@ public class AppController {
         }
         if(!articles.isEmpty()){
             setArticles(articles.stream()
-//                    .filter(article -> article.getDescription() != null)   //if we want to remove all articles with no description
                     .sorted(Comparator.comparingInt((Article article) -> article.getDescription().length())
                             .thenComparing(Article::getDescription))
                     .collect(Collectors.toList()));
