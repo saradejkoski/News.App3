@@ -1,5 +1,6 @@
 package at.ac.fhcampuswien.ui;
 
+import at.ac.fhcampuswien.App;
 import at.ac.fhcampuswien.controllers.AppController;
 import at.ac.fhcampuswien.downloader.ParallelDownloader;
 import at.ac.fhcampuswien.downloader.SequentialDownloader;
@@ -34,7 +35,10 @@ public class Menu {
             case "q" -> printExitMessage();
             case "h" -> downloadURLs();
             case "c" -> printSourceWithMostArticles(controller);
+            case "d" -> printLongestAuthorName(controller);
             case "e" -> printAmountOfNYTArticles(controller);
+            case "f" -> printHeadlinesUnder15(controller);
+            case "g" -> longestDescription(controller);
             default -> printInvalidInputMessage();
         }
     }
@@ -83,9 +87,18 @@ public class Menu {
         System.out.println("Number of articles: " + controller.printAmountOfNYTArticles());
     }
 
+    public void printLongestAuthorName (AppController controller){
+        System.out.println("Author with longest name: " + controller.printLongestAuthorName());
+    }
+
+    public void printHeadlinesUnder15(AppController controller){
+        System.out.println("Headline with less than 15 letters: " + controller.getTitlesLessThan15());
+    }
 
 
-
+    public void longestDescription(AppController controller){
+        System.out.println(controller.longestDescription());
+    }
 
 
     public static void printExitMessage(){

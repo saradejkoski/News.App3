@@ -13,4 +13,3 @@ public class Source {
         return name;
     }
 }
-

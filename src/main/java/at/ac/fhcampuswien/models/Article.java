@@ -15,6 +15,10 @@ public class Article {
         this.title = title;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Source getSource() {
         return source;
     }
@@ -49,6 +53,6 @@ public class Article {
 
     @Override
     public String toString() {
-        return "Title: " + getTitle() + "\n" + "Author: " + getAuthor();
+        return "Title: " + getTitle() + "\n" + "Author: " + getAuthor() + "\n" + "Description: " + getDescription();
     }
 }
